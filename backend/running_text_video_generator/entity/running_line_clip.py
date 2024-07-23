@@ -1,5 +1,6 @@
 from moviepy.editor import TextClip, ColorClip, CompositeVideoClip
 from typing import Callable
+from backend.settings import MEDIA_PATH
 
 
 class RunningLineClip:
@@ -19,7 +20,7 @@ class RunningLineClip:
     SUCCESS_MSG = "success"
     WRONG_FMT_MSG = "The video format is wrong. Only MP4 and WEBM are acceptable."
 
-    FILE_NAME = "running-ling"
+    FILE_NAME = "running-link"
 
     def __init__(self, text: str) -> None:
         self.text = text
@@ -36,7 +37,8 @@ class RunningLineClip:
         """Send the video of the clip to the client."""
         try:
             self.__validate_fmt(fmt)
-            clip.set_duration(self.DURATION_SEC).write_videofile(f"{self.FILE_NAME}.{fmt}", fps=self.VIDEO_FPS)
+            video_path = f"{MEDIA_PATH}/{self.FILE_NAME}.{fmt}"
+            clip.set_duration(self.DURATION_SEC).write_videofile(video_path, fps=self.VIDEO_FPS)
             return {self.MSG_KEY: self.SUCCESS_MSG}
         except Exception as e:
             return {self.MSG_KEY: str(e)}

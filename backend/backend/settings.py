@@ -21,12 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", "dump")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get("DEBUG", default=1))
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+allowed_hosts = os.environ.get("DJANGO_ALLOWED_HOSTS")
+allowed_hosts = allowed_hosts if allowed_hosts else "127.0.0.1"
+ALLOWED_HOSTS = allowed_hosts.split(" ")
 
 # Application definition
 
@@ -125,3 +127,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Media files storage
+MEDIA_URL = "/video/"
+MEDIA_PATH = "media"
+MEDIA_ROOT = os.path.join(BASE_DIR, f"{MEDIA_PATH}/")
