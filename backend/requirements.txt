@@ -1,0 +1,3 @@
+django
+moviepy
+psycopg2-binary
