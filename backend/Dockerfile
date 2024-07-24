@@ -11,6 +11,10 @@ ENV PYTHONUNBUFFERED 1
 # Install system dependecies.
 RUN apt-get update && apt-get install -y netcat
 
+# Install imagemagick to allow downloading of mp4 files.
+RUN apt-get install -y imagemagick
+RUN cat /etc/ImageMagick-6/policy.xml | sed 's/none/read,write/g'> /etc/ImageMagick-6/policy.xml
+
 # Install dependecies.
 RUN pip install --upgrade pip
 COPY ./requirements.txt . 
