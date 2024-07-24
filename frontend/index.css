@@ -1,0 +1,23 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  width: 50%;
+  margin: 0 auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form > * {
+  width: 100%;
+  margin: 2.5px 0;
+}
+
+h1 {
+  text-align: center;
+}
