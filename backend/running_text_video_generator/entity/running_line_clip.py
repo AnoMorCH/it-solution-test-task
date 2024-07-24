@@ -1,6 +1,9 @@
 from moviepy.editor import TextClip, ColorClip, CompositeVideoClip
 from typing import Callable
 from backend.settings import MEDIA_PATH
+from .message import Message
+import os
+import shutil
 
 
 class RunningLineClip:
@@ -16,7 +19,6 @@ class RunningLineClip:
     VIDEO_FPS = 24
     TEXT_COLOR = "white"
 
-    MSG_KEY = "msg"
     SUCCESS_MSG = "success"
     WRONG_FMT_MSG = "The video format is wrong. Only MP4 and WEBM are acceptable."
 
@@ -39,10 +41,18 @@ class RunningLineClip:
             self.__validate_fmt(fmt)
             video_path = f"{MEDIA_PATH}/{self.FILE_NAME}.{fmt}"
             clip.set_duration(self.DURATION_SEC).write_videofile(video_path, fps=self.VIDEO_FPS)
-            return {self.MSG_KEY: self.SUCCESS_MSG}
+            return Message(self.SUCCESS_MSG).get()
         except Exception as e:
-            return {self.MSG_KEY: str(e)}
+            return Message(str(e)).get()
     
+    def delete_saved_videos(func: Callable) -> None:
+        def inner(self, *args, **kwargs):
+            response = func(self, *args, **kwargs)
+            shutil.rmtree(MEDIA_PATH)
+            os.makedirs(MEDIA_PATH)
+            return response
+        return inner
+
     def __generate_movement_oxy_func(self, text_length_px: int) -> Callable:
         """Generate a function which makes movement from right to left showing 
         the whole message."""
