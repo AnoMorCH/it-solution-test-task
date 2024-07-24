@@ -3,5 +3,4 @@ backend/running_text_video_generator/__pycache__
 backend/running_text_video_generator/entity/__pycache__
 backend/running_text_video_generator/entity/.pytest_cache
 backend/running_text_video_generator/migrations/__pycache__
-backend/media/*
 venv
