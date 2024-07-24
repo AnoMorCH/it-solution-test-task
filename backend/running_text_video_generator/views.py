@@ -3,11 +3,14 @@ from django.views.generic import View
 from running_text_video_generator.entity.running_line_clip import RunningLineClip
 from backend.settings import MEDIA_PATH
 from wsgiref.util import FileWrapper
+import os
+import shutil
 import json
 
 
 class RunningLineClipView(View):
     def get(self, request) -> HttpResponse:
+        self.__delete_saved_videos()
         text = request.GET.get("text")
         fmt = request.GET.get("fmt")
 
@@ -29,4 +32,8 @@ class RunningLineClipView(View):
             return response
         else:
             return HttpResponse(json.dumps(output), content_type="application/json", status=400)
+
+    def __delete_saved_videos(self) -> None:
+        shutil.rmtree(MEDIA_PATH)
+        os.makedirs(MEDIA_PATH)
 
