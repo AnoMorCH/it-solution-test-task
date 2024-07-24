@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+
+class TextLog(models.Model):
+    text = models.TextField()
