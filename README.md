@@ -1,6 +1,6 @@
 # Тестовое задание для компании IT-Solution
 
-<center><img src="https://i.imgur.com/Y6tjBPC.gif" alt="Preview" width="50%"></center>
+<img src="https://i.imgur.com/Y6tjBPC.gif" alt="Preview" width="100%">
 
 ## Основное
 
